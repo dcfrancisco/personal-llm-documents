@@ -141,9 +141,7 @@ The `initialize_langchain.py` script initializes the language model chain and re
 
 The `run_langchain.py` script prompts the user to enter a question. It will continue prompting until the user enters '/stop'. For each question, it retrieves the answer using the language model chain and displays the result and source documents.
 
-Note: Make sure all three scripts are in the same directory, and the necessary dependencies are installed (`langchain`, `openai`, `tiktoken`, and `chromadb
-
-`).
+Note: Make sure all three scripts are in the same directory, and the necessary dependencies are installed (`langchain`, `openai`, `tiktoken`, and `chromadb`).
 
 
 ## License
