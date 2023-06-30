@@ -1,0 +1,18 @@
+# Python
+venv
+__pycache__/
+
+# Chroma
+db/
+
+# Other temporary or generated files
+.env
+*.pyc
+*.pyo
+*.pyd
+*.swp
+.DS_Store
+*.zip
+new_articles
+documentation
+
