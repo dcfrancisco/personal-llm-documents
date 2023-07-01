@@ -15,6 +15,18 @@ This project demonstrates how to create an intelligent Q&A Chatbot by combining 
 └── setup_langchain.py
 
 ```
+## Features
+- **Natural Language Processing (NLP)**: The application uses NLP techniques for understanding and generating human-like text responses.
+- **Large Language Models (LLM)**: Harnessing the power of LLMs to improve response generation.
+- **OpenAI Embeddings**: The application uses OpenAI Embeddings for efficient language representation and understanding.
+- **Vector Databases**: It leverages Chroma for efficient storage and retrieval of vector data.
+- **Gradio Interface**: The application provides a user-friendly interface using Gradio, allowing users to easily interact with the chatbot.
+
+## Usage
+To experience our Q&A Chatbot Demo, simply type a question into the prompt, and our Chatbot will generate a detailed, contextually accurate response.
+
+
+##  `requirements.txt` File for the Code
 
 
 ### Here's a `requirements.txt` file that includes the necessary dependencies for the code:
@@ -152,6 +164,13 @@ Note: Make sure all three scripts are in the same directory, and the necessary d
 
   - ![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png | width=100)
 - `![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png | width=100)`
+
+
+## Future Work
+We continue to explore ways to improve the performance and user experience of our chatbot. Contributions and suggestions are welcomed!
+
+
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
