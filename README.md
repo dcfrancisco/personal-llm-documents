@@ -1,3 +1,6 @@
+## Overview
+This project demonstrates how to create an intelligent Q&A Chatbot by combining advanced AI technologies. Our Chatbot is designed to understand, learn from, and generate language-based responses. It leverages LangChain for processing and understanding text, OpenAI Embeddings for language understanding and generation, Chroma for effective data storage and retrieval, and Gradio for an interactive user interface.
+
 ```
 
 .
@@ -14,7 +17,7 @@
 ```
 
 
-### Certainly! Here's a `requirements.txt` file that includes the necessary dependencies for the code:
+### Here's a `requirements.txt` file that includes the necessary dependencies for the code:
 
 ```
 langchain
@@ -46,7 +49,7 @@ from langchain.document_loaders import TextLoader
 from langchain.document_loaders import DirectoryLoader
 
 # Set OpenAI API key
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = ""
 
 # Load and process the text files
 loader = DirectoryLoader('./new_articles/', glob="./*.txt", loader_cls=TextLoader)
@@ -143,7 +146,16 @@ The `run_langchain.py` script prompts the user to enter a question. It will cont
 
 Note: Make sure all three scripts are in the same directory, and the necessary dependencies are installed (`langchain`, `openai`, `tiktoken`, and `chromadb`).
 
+## Chatbot
 
+`![Chatbot](./assets/gradio-chatbot.png | width=250)`
+
+  - ![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png | width=100)
+- `![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png | width=100)`
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+
+
+

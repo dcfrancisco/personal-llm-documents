@@ -5,7 +5,7 @@ from langchain.llms import OpenAI
 
 # Load the persisted database from disk
 persist_directory = "db"
-embedding = OpenAIEmbeddings()
+embedding = OpenAIEmbeddings()  # model = "text-embedding-ada-002"
 
 vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding)
 
