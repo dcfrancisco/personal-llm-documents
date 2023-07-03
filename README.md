@@ -23,12 +23,11 @@ This project demonstrates how to create an intelligent Q&A Chatbot by combining 
 ## Usage
 To experience our Q&A Chatbot Demo, simply type a question into the prompt, and our Chatbot will generate a detailed, contextually accurate response.
 
-
 ## Installation
 To run the code, you'll need to install the necessary dependencies. You can install them using the following command:
 
 
-### Here's a `requirements.txt` file that includes the necessary dependencies for the code:
+### Here's the `requirements.txt` file that includes the necessary dependencies for the code:
 
 ```
 langchain
