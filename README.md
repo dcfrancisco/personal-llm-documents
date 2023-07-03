@@ -13,7 +13,6 @@ This project demonstrates how to create an intelligent Q&A Chatbot by combining 
 └── setup_langchain.py          # Script for setting up the database
 ```
 
-```
 ## Features
 - **Natural Language Processing (NLP)**: The application uses NLP techniques for understanding and generating human-like text responses.
 - **Large Language Models (LLM)**: Harnessing the power of LLMs to improve response generation.
@@ -36,8 +35,7 @@ langchain
 openai
 tiktoken
 chromadb
-psycopg2
-pgvector
+gradio
 ```
 
 You can save this content to a file named `requirements.txt`. To install the dependencies, you can use the following command:
@@ -70,49 +68,50 @@ pip install -r requirements.txt
 OPENAI_API_KEY=<your-openai-api-key>
 ```
 
-
-
-
-
-
 Make sure to run this command in your Python environment to install the required packages before running the code.
 
 
-Certainly! Here's the modified code split into separate scripts:
-
 **Python Script 1 (`setup_langchain.py`):**
 ```python
+
 import os
+from dotenv import load_dotenv
 from langchain.vectorstores import Chroma
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.document_loaders import TextLoader
 from langchain.document_loaders import DirectoryLoader
 
+load_dotenv()
+
 # Set OpenAI API key
 openAiApiKey = os.getenv("OPENAI_API_KEY")
 
-# Load and process the text files
-loader = DirectoryLoader('./new_articles/', glob="./*.txt", loader_cls=TextLoader)
-documents = loader.load()
+# Load and process the text and pdf files
+pdf_loader = DirectoryLoader("./new_articles/", glob="./*.pdf")
+txt_loader = DirectoryLoader("./new_articles/", glob="./*.txt", loader_cls=TextLoader)
+
+pdf_documents = pdf_loader.load()
+txt_documents = txt_loader.load()
+
+documents = pdf_documents + txt_documents
 
 # Splitting the text into chunks
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 texts = text_splitter.split_documents(documents)
 
 # Embed and store the texts
-persist_directory = 'db'
+persist_directory = "db"
 embedding = OpenAIEmbeddings()
 
 vectordb = Chroma.from_documents(
-    documents=texts,
-    embedding=embedding,
-    persist_directory=persist_directory
+    documents=texts, embedding=embedding, persist_directory=persist_directory
 )
 
 # Persist the database to disk
 vectordb.persist()
 vectordb = None
+
 ```
 
 **Python Script 2 (`initialize_langchain.py`):**
