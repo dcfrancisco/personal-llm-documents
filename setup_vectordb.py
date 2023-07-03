@@ -11,8 +11,7 @@ load_dotenv()
 # Set OpenAI API key
 openAiApiKey = os.getenv("OPENAI_API_KEY")
 
-# Load and process the text files
-# loader = DocumentLoader('path/to/your/pdf/file.pdf')
+# Load and process the text and pdf files
 pdf_loader = DirectoryLoader("./new_articles/", glob="./*.pdf")
 txt_loader = DirectoryLoader("./new_articles/", glob="./*.txt", loader_cls=TextLoader)
 
