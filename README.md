@@ -46,6 +46,35 @@ You can save this content to a file named `requirements.txt`. To install the dep
 pip install -r requirements.txt
 ```
 
+### Create a Python Environment
+
+```
+python3 -m venv venv
+```
+
+### Activate the Python Environment
+
+```
+source venv/bin/activate
+```
+
+### Install the Dependencies
+
+```
+pip install -r requirements.txt
+```
+
+### Create a `.env` File
+
+``` 
+OPENAI_API_KEY=<your-openai-api-key>
+```
+
+
+
+
+
+
 Make sure to run this command in your Python environment to install the required packages before running the code.
 
 
@@ -61,7 +90,7 @@ from langchain.document_loaders import TextLoader
 from langchain.document_loaders import DirectoryLoader
 
 # Set OpenAI API key
-os.environ["OPENAI_API_KEY"] = ""
+openAiApiKey = os.getenv("OPENAI_API_KEY")
 
 # Load and process the text files
 loader = DirectoryLoader('./new_articles/', glob="./*.txt", loader_cls=TextLoader)
