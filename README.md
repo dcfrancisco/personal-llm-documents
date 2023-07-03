@@ -6,13 +6,12 @@ This project demonstrates how to create an intelligent Q&A Chatbot by combining 
 .
 ├── LICENSE
 ├── README.md
-├── __pycache__
-├── chatbot_documents.py
-├── chatbot_ui.py
-├── initialize_langchain.py
-├── requirements.txt
-├── run_langchain.py
-└── setup_langchain.py
+├── chatbot_documents.py        # Script for processing and embedding text documents
+├── initialize_langchain.py     # Script for initializing the language model chain and retriever
+├── requirements.txt            # File containing the necessary dependencies for the code
+├── run_langchain.py            # Script for running the Q&A Chatbot
+└── setup_langchain.py          # Script for setting up the database
+```
 
 ```
 ## Features
@@ -26,7 +25,8 @@ This project demonstrates how to create an intelligent Q&A Chatbot by combining 
 To experience our Q&A Chatbot Demo, simply type a question into the prompt, and our Chatbot will generate a detailed, contextually accurate response.
 
 
-##  `requirements.txt` File for the Code
+## Installation
+To run the code, you'll need to install the necessary dependencies. You can install them using the following command:
 
 
 ### Here's a `requirements.txt` file that includes the necessary dependencies for the code:
