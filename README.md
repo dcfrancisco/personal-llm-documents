@@ -46,7 +46,7 @@ pip install -r requirements.txt
 ### Create a Python Environment
 
 ```
-python3 -m venv venv
+python3 -m venv .env
 ```
 
 ### Activate the Python Environment
