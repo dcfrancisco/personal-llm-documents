@@ -46,13 +46,13 @@ pip install -r requirements.txt
 ### Create a Python Environment
 
 ```
-python3 -m venv .env
+python3 -m venv .venv
 ```
 
 ### Activate the Python Environment
 
 ```
-source venv/bin/activate
+source ./.venv/bin/activate
 ```
 
 ### Install the Dependencies
