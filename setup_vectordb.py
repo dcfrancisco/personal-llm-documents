@@ -25,7 +25,7 @@ texts = text_splitter.split_documents(documents)
 
 # Embed and store the texts
 persist_directory = "db"
-embedding = OpenAIEmbeddings(deployment="text-similarity-ada-001")
+embedding = OpenAIEmbeddings(deployment="text-embedding-ada-002")
 
 vectordb = Chroma.from_documents(
     documents=texts, embedding=embedding, persist_directory=persist_directory
