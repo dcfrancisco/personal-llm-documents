@@ -67,115 +67,14 @@ pip install -r requirements.txt
 OPENAI_API_KEY=<your-openai-api-key>
 ```
 
+### Initialize database 
+
+```
+
+```
+
 Make sure to run this command in your Python environment to install the required packages before running the code.
 
-
-**Python Script 1 (`setup_langchain.py`):**
-```python
-
-import os
-from dotenv import load_dotenv
-from langchain.vectorstores import Chroma
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.document_loaders import TextLoader
-from langchain.document_loaders import DirectoryLoader
-
-load_dotenv()
-
-# Set OpenAI API key
-openAiApiKey = os.getenv("OPENAI_API_KEY")
-
-# Load and process the text and pdf files
-pdf_loader = DirectoryLoader("./new_articles/", glob="./*.pdf")
-txt_loader = DirectoryLoader("./new_articles/", glob="./*.txt", loader_cls=TextLoader)
-
-pdf_documents = pdf_loader.load()
-txt_documents = txt_loader.load()
-
-documents = pdf_documents + txt_documents
-
-# Splitting the text into chunks
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-texts = text_splitter.split_documents(documents)
-
-# Embed and store the texts
-persist_directory = "db"
-embedding = OpenAIEmbeddings()
-
-vectordb = Chroma.from_documents(
-    documents=texts, embedding=embedding, persist_directory=persist_directory
-)
-
-# Persist the database to disk
-vectordb.persist()
-vectordb = None
-
-```
-
-**Python Script 2 (`initialize_langchain.py`):**
-```python
-from langchain.vectorstores import Chroma
-from langchain.embeddings import OpenAIEmbeddings
-
-# Load the persisted database from disk
-persist_directory = 'db'
-embedding = OpenAIEmbeddings()
-
-vectordb = Chroma(
-    persist_directory=persist_directory,
-    embedding_function=embedding
-)
-
-# Make a retriever
-retriever = vectordb.as_retriever()
-
-# Create the chain to answer questions
-qa_chain = RetrievalQA.from_chain_type(
-    llm=OpenAI(),
-    chain_type="stuff",
-    retriever=retriever,
-    return_source_documents=True
-)
-
-# Define the function to process and display results
-def process_llm_response(llm_response):
-    print(llm_response['result'])
-    print('\n\nSources:')
-    for source in llm_response["source_documents"]:
-        print(source.metadata['source'])
-```
-
-**Python Script 3 (`run_langchain.py`):**
-```python
-from initialize_langchain import qa_chain, process_llm_response
-
-# Prompt for query and display response
-while True:
-    query = input("Enter your question (or '/stop' to quit): ")
-    if query.lower() == '/stop':
-        break
-    
-    llm_response = qa_chain(query)
-    process_llm_response(llm_response)
-```
-
-To run the code, follow these steps:
-
-1. Execute `setup_langchain.py`:
-   ```
-   python setup_langchain.py
-   ```
-
-2. Execute `initialize_langchain.py`:
-   ```
-   python initialize_langchain.py
-   ```
-
-3. Execute `run_langchain.py`:
-   ```
-   python run_langchain.py
-   ```
 
 The `setup_langchain.py` script sets up the database by processing the text files, embedding them, and persisting the database to disk.
 

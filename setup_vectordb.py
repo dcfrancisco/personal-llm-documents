@@ -1,10 +1,9 @@
 import os
 from dotenv import load_dotenv
-from langchain.vectorstores import Chroma
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_chroma import Chroma
+from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.document_loaders import TextLoader
-from langchain.document_loaders import DirectoryLoader
+from langchain.document_loaders import TextLoader, DirectoryLoader
 
 load_dotenv()
 
@@ -26,12 +25,12 @@ texts = text_splitter.split_documents(documents)
 
 # Embed and store the texts
 persist_directory = "db"
-embedding = OpenAIEmbeddings()
+embedding = OpenAIEmbeddings(deployment="text-similarity-ada-001")
 
 vectordb = Chroma.from_documents(
     documents=texts, embedding=embedding, persist_directory=persist_directory
 )
 
 # Persist the database to disk
-vectordb.persist()
+# vectordb.persist()
 vectordb = None

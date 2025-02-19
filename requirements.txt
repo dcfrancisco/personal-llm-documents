@@ -1,5 +1,10 @@
 langchain
+langchain-community
+langchain-cli
+unstructured
+unstructured[pdf]
 openai
 tiktoken
+langchain-chroma
 chromadb
 gradio
