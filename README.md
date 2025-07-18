@@ -13,7 +13,7 @@ This project demonstrates how to create an intelligent Q&A Chatbot by combining 
 └── setup_langchain.py          # Script for setting up the database
 ```
 
-> ☕️ If this helps you learn faster, [buy me a coffee](https://www.buymeacoffee.com/dcfrancisco) 🙌
+> ☕ Keep me caffeinated so I can keep debugging things you won’t have to — [buy me a coffee](https://www.buymeacoffee.com/dcfrancisco) 🙌
 
 
 ## Features
