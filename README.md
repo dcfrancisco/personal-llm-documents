@@ -13,6 +13,9 @@ This project demonstrates how to create an intelligent Q&A Chatbot by combining 
 └── setup_langchain.py          # Script for setting up the database
 ```
 
+> ☕️ If this helps you learn faster, [buy me a coffee](https://www.buymeacoffee.com/dcfrancisco) 🙌
+
+
 ## Features
 - **Natural Language Processing (NLP)**: The application uses NLP techniques for understanding and generating human-like text responses.
 - **Large Language Models (LLM)**: Harnessing the power of LLMs to improve response generation.
