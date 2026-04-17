@@ -1,5 +1,7 @@
 import gradio as gr
-from initialize_langchain import qa_chain, html_llm_response
+from initialize_langchain import create_qa_chain, html_llm_response
+
+qa_chain = create_qa_chain()
 
 
 # Function to generate response using LangChain

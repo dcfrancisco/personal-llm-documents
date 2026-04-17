@@ -1,9 +1,10 @@
 import os
+from functools import lru_cache
 
 from dotenv import load_dotenv
-from langchain.chains import RetrievalQA
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.llms import Ollama
+from langchain_classic.chains import RetrievalQA
 from langchain_chroma import Chroma
 from langchain_openai import OpenAI
 
@@ -16,8 +17,18 @@ EMBEDDING_MODEL = os.getenv(
 LOCAL_LLM_MODEL = os.getenv("LOCAL_LLM_MODEL", "llama3.1")
 RETRIEVAL_K = int(os.getenv("KB_RETRIEVAL_K", "4"))
 
-embedding = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
-vectordb = Chroma(persist_directory=PERSIST_DIRECTORY, embedding_function=embedding)
+
+@lru_cache(maxsize=1)
+def get_embedding():
+    return HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
+
+
+@lru_cache(maxsize=1)
+def get_vectordb():
+    return Chroma(
+        persist_directory=PERSIST_DIRECTORY,
+        embedding_function=get_embedding(),
+    )
 
 
 def get_llm():
@@ -30,7 +41,7 @@ def build_retriever(source_type=None):
     search_kwargs = {"k": RETRIEVAL_K}
     if source_type and source_type != "all":
         search_kwargs["filter"] = {"source_type": source_type}
-    return vectordb.as_retriever(search_kwargs=search_kwargs)
+    return get_vectordb().as_retriever(search_kwargs=search_kwargs)
 
 
 def create_qa_chain(source_type=None):
@@ -41,8 +52,6 @@ def create_qa_chain(source_type=None):
         return_source_documents=True,
     )
 
-
-qa_chain = create_qa_chain()
 
 
 # Define the function to process and display results
