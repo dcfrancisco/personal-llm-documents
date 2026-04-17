@@ -11,4 +11,3 @@ chromadb
 gradio
 python-dotenv
 sentence-transformers
-pypdf
