@@ -6,7 +6,7 @@ from initialize_langchain import qa_chain, html_llm_response
 def generate_response(message):
     # Prompt for query and display response
     query = message
-    llm_response = qa_chain(query)
+    llm_response = qa_chain.invoke({"query": query})
     response = html_llm_response(llm_response)
     return response
 

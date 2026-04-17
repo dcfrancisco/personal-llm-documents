@@ -1,21 +1,48 @@
-from langchain_chroma import Chroma
-from langchain.embeddings.openai import OpenAIEmbeddings
+import os
+
+from dotenv import load_dotenv
 from langchain.chains import RetrievalQA
-from langchain.llms import OpenAI
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.llms import Ollama
+from langchain_chroma import Chroma
+from langchain_openai import OpenAI
 
-# Load the persisted database from disk
-persist_directory = "db"
-embedding = OpenAIEmbeddings()  # model = "text-embedding-ada-002"
+load_dotenv()
 
-vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding)
-
-# Make a retriever
-retriever = vectordb.as_retriever()
-
-# Create the chain to answer questions
-qa_chain = RetrievalQA.from_chain_type(
-    llm=OpenAI(), chain_type="stuff", retriever=retriever, return_source_documents=True
+PERSIST_DIRECTORY = os.getenv("CHROMA_PERSIST_DIRECTORY", "db")
+EMBEDDING_MODEL = os.getenv(
+    "EMBEDDING_MODEL_NAME", "sentence-transformers/all-MiniLM-L6-v2"
 )
+LOCAL_LLM_MODEL = os.getenv("LOCAL_LLM_MODEL", "llama3.1")
+RETRIEVAL_K = int(os.getenv("KB_RETRIEVAL_K", "4"))
+
+embedding = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
+vectordb = Chroma(persist_directory=PERSIST_DIRECTORY, embedding_function=embedding)
+
+
+def get_llm():
+    if os.getenv("OPENAI_API_KEY"):
+        return OpenAI()
+    return Ollama(model=LOCAL_LLM_MODEL)
+
+
+def build_retriever(source_type=None):
+    search_kwargs = {"k": RETRIEVAL_K}
+    if source_type and source_type != "all":
+        search_kwargs["filter"] = {"source_type": source_type}
+    return vectordb.as_retriever(search_kwargs=search_kwargs)
+
+
+def create_qa_chain(source_type=None):
+    return RetrievalQA.from_chain_type(
+        llm=get_llm(),
+        chain_type="stuff",
+        retriever=build_retriever(source_type=source_type),
+        return_source_documents=True,
+    )
+
+
+qa_chain = create_qa_chain()
 
 
 # Define the function to process and display results

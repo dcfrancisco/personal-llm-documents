@@ -1,5 +1,6 @@
 langchain
 langchain-community
+langchain-openai
 langchain-cli
 unstructured
 unstructured[pdf]
@@ -8,3 +9,6 @@ tiktoken
 langchain-chroma
 chromadb
 gradio
+python-dotenv
+sentence-transformers
+pypdf
