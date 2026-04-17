@@ -90,8 +90,8 @@ def build_vector_db(data_root: str, persist_directory: str, reset: bool):
 
     if not documents:
         raise ValueError(
-            "No documents were loaded. Add files under knowledge_base/docs, "
-            "knowledge_base/code, or knowledge_base/logs."
+            f"No documents were loaded. Add files under {data_root_path}/docs, "
+            f"{data_root_path}/code, or {data_root_path}/logs."
         )
 
     text_splitter = RecursiveCharacterTextSplitter(
