@@ -53,7 +53,6 @@ def create_qa_chain(source_type=None):
     )
 
 
-
 # Define the function to process and display results
 def process_llm_response(llm_response):
     print(llm_response["result"])
